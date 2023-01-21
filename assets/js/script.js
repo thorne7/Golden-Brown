@@ -2,55 +2,56 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
+// Initiate after document ready
 $(document).ready(function() {
+  setCurrentDate();
+  setHourStyles();
 
+  getSavedNotes();
+
+  $(".saveBtn").click(function() {
+    var hour = timeBlock.id 
+    var note = $(this).siblings("description").val();
+
+    setHourNote(hour, note)
+  })
 })
 
-var today = dayjs();
-$("#currentDay").text(today.format('dddd, MMMM D H:mm A'))
-
-var currenthour = dayjs('H');
-var timeBlock = ".time-block"
-
-
-
-function dataStorage() {
-  var description = localStorage.getItem('.description');
-  if (description) {
-    description = JSON.parse(description);
-  } else {
-    description = new Array();
-  }
-  return description;
+function setCurrentDate() {
+  var today = dayjs();
+  $("#currentDay").text(today.format('dddd, MMMM D'));
 }
 
-function saveButton() {
-  event.preventDefault();
-  var description = ('.description').value;
-  var timeBlock = $(this).siblings(".description").val();
+// Old functions ---->
 
-  localStorage.setItem(timeBlock, description);
-}
+// function dataStorage() {
+//   var description = localStorage.getItem('.description');
+//   if (description) {
+//     description = JSON.parse(description);
+//   } else {
+//     description = new Array();
+//   }
+//   return description;
+// }
 
-function hourloop() {
+// function saveButton() {
+//   event.preventDefault();
+//   var description = ('.description').value;
+//   var timeBlock = $(this).siblings(".description").val();
 
-  if (description !== null) {
-    for (var j = 0; j < description.length; j++) {
-      if (description[j].hour == i) {
-        descriptionEl.text(description[j].desc);
-      }
-    }
-    // set the background color based on the time
-    if (dayjs().format("H") < i) {
-      descriptionEl.addClass("description future col-6 col-md-8 col-lg-10");
-    } else if (dayjs().format("H") == i) {
-      descriptionEl.addClass("description present col-6 col-md-8 col-lg-10");
-    } else {
-      descriptionEl.addClass("description past col-6 col-md-8 col-lg-10");
-    }
+//   localStorage.setItem(timeBlock, description);
+// }
 
-  }
-}
+// function hourloop() {
+
+//   if (description !== null) {
+//     for (var j = 0; j < description.length; j++) {
+//       if (description[j].hour == i) {
+//         descriptionEl.text(description[j].desc);
+//       }
+//     }
+//   }
+// }
 
 
 // TODO: Add a listener for click events on the save button. This code should
@@ -87,17 +88,3 @@ function hourloop() {
 //   if ('hour') dayjs().isAfter(dayjs("H"))
 //   $(".time-block").addClass("future");
 // }
-
-
-// $(".saveBtn").click(function () {
-//   if ('hour')dayjs().isSame(dayjs("H")); {
-//     $(".time-block").addClass("present");
-//   }
-//     })
-
-//     $(".saveBtn").click(function () {
-//   if ('hour')dayjs().isAfter(dayjs("H")); {
-//     $(".time-block").addClass("future");
-//   }
-//     })
-$(".saveBtn").click(saveButton);
